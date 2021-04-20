@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="test">
+    <select id="findActiveBlogLike"
+            resultType="Blog">
+        SELECT * FROM BLOG WHERE state = ‘ACTIVE’
+        <choose>
+            <when test="title != null">
+                AND title like #{title}
+            </when>
+            <when test="author != null and author.name != null">
+                AND author_name like #{author.name}
+            </when>
+            <otherwise>
+                AND featured = 1
+            </otherwise>
+        </choose>
+    </select>
+</mapper>

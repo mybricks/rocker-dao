@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="localhost-test-user">
+    <insert id="testInsert">
+        insert into user(name,u_desc) values('new user','new desc')
+    </insert>
+    <select id="countByName" resultType="number">
+        select count(*) from user
+        <where>
+            <if test="name != null">
+                and name like #{name}
+            </if>
+        </where>
+    </select>
+</mapper>

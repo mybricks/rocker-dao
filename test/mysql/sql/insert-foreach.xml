@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="test">
+    <insert id="insertBatch" parameterType="java.util.List">
+        <if test="list != null">
+            insert into student(ID,NAME,AGE)
+            SELECT A.*
+            FROM(
+            <foreach collection="list" item="item" index="index" separator="union all">
+                SELECT
+                #{item.ID,jdbcType=VARCHAR} ID,
+                #{item.NAME,jdbcType=VARCHAR} NAME,
+                #{item.AGE,jdbcType=VARCHAR} AGE
+                FROM dual
+            </foreach>
+            )A
+        </if>
+    </insert>
+</mapper>
