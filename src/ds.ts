@@ -344,7 +344,6 @@ export class DOBase {
 
     let genResult = function() {
       return <Promise<T>>new Promise((resolve, reject) => {
-        console.log('con processID====>', con.processID);
         if (isXml) {
           console.log('sql', _sql)
           con.query(_sql, function(err, _rtn, fields) {

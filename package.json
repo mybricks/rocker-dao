@@ -1,6 +1,6 @@
 {
   "name": "@mybricks/rocker-dao",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Database access object framework,support transaction",
   "author": "Chemingjun",
   "scripts": {
@@ -38,5 +38,8 @@
   "directories": {
     "doc": "doc"
   },
-  "main": "./index.js"
+  "main": "./index.js",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  }
 }

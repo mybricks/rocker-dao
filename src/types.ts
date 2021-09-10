@@ -102,7 +102,6 @@ export class SqlResult {
 	}
 
 	map(data) {
-		console.log('sqlResult===>', data);
 		return this.mapper && this.mapper.prototype ? this.mapper.prototype['_map_'](data) : data;
 	}
 
