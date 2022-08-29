@@ -122,7 +122,7 @@ export interface DataBase {
 	getConfig(): DBConfigType;
 	// 适配器
 	// adapter(rtn, sql: string, sqlResult?: SqlResult);
-	quertAdapter(rtn, sqlResult?: SqlResult);
+	// quertAdapter(rtn, sqlResult?: SqlResult);
 	insertAdapter(rtn);
 	updateAdapter(rtn);
 	deleteAdapter(rtn);

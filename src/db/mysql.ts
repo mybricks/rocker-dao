@@ -1,4 +1,5 @@
 import * as path from 'path';
+// @ts-ignore
 import { Logger } from '@mybricks/rocker-commons';
 import { OkPacket, Pool } from 'mysql';
 // import * as Types from "../types";

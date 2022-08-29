@@ -7,13 +7,14 @@
  * Author: CheMingjun <chemingjun@126.com>
  */
 import 'zone.js';
+// @ts-ignore
 import { Logger } from '@mybricks/rocker-commons';
 // import * as Types from './types'
 // import { parse } from "./sqlTpt";
 import { DatabaseDefault, SqlResult, DBConfigType, TNodeType, DataBase } from './types';
 // import * as path from 'path';
 // import { DataSource } from './main';
-import { DSMysql, DSPgsql } from './db';
+import { DSMysql } from './db';
 
 // vdds proxy切换ds时导致烂连接
 const VDDSChangeError = `conn pool is closed`;
@@ -37,7 +38,6 @@ export function startDS(dsCfg: DBConfigType) {
       break;
     // postgregsql
     case 'POSTGRE':
-      dsReg[name] = new DSPgsql(name, dsCfg);
       // dsReg[name] = new DSMysql(name, dsCfg);
       // dsReg[name] = new DSMysql(name, dsCfg);
       break;
@@ -51,7 +51,7 @@ export async function shutdown() {
       let ds = dsReg[name];
       let pool = ds.getPool();
       if (pool) {
-        await new Promise((resole, reject) => {
+        await new Promise<void>((resole, reject) => {
           pool.end(function(err) {
             if (err) {
               Logger.error('Error occured when the database[' + name + '] shutdown.');
@@ -130,7 +130,7 @@ export async function doTransaction(
 ) {
     let bt = new Date().getTime();
     let tdId = con.threadId;
-    await new Promise((resolve, reject) => {
+    await new Promise<void>((resolve, reject) => {
 
         // con.beginTransaction(function(_e) {
         //     if (_e) {
@@ -165,7 +165,7 @@ export async function doTransaction(
         rst = await fn();
     } catch (ex) {
         logErr(tdId, `Transaction failed => ${ex.message}`);
-        await new Promise((resolve, reject) => {
+        await new Promise<void>((resolve, reject) => {
             // con.rollback(function() {
             //     Logger.warn(`[${tdId}] Transaction rollback => ${ex.message}`);
             //     resolve();
@@ -187,7 +187,7 @@ export async function doTransaction(
         });
         throw ex;
     }
-    await new Promise((resolve, reject) => {
+    await new Promise<void>((resolve, reject) => {
         // con.commit(function(_e) {
         // if (_e) {
         //     return con.rollback(function() {
@@ -477,7 +477,7 @@ function log(_conId, _msg, _paramAry, _bt) {
   );
 }
 async function sleep(timeout) {
-  await new Promise((resolve, rej) => {
+  await new Promise<void>((resolve, rej) => {
     setTimeout(() => {
       resolve();
     }, timeout);
