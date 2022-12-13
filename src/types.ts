@@ -30,6 +30,7 @@ export type DBConfigType = {
 	password: string;
 	database: string;
 	sqlPath?: string; //Mybatis xml file path
+	isGlobal?: boolean; // shared instance to global
 };
 
 export class SqlResult {

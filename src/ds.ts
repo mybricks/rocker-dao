@@ -35,6 +35,10 @@ export function startDS(dsCfg: DBConfigType) {
     // mysql
     case 'MYSQL':
       dsReg[name] = new DSMysql(name, dsCfg);
+      if(dsCfg['isGlobal']) {
+        // @ts-ignore
+        global.__ROCKERDAO_DATASOURCE_INSTANCE__ = dsReg
+    }
       break;
     // postgregsql
     case 'POSTGRE':
@@ -242,7 +246,8 @@ export class DOBase {
     if (!dsName) {
       dsName = DatabaseDefault;
     }
-    ds = dsReg[dsName];
+    // @ts-ignore
+    ds = dsReg[dsName] || global.__ROCKERDAO_DATASOURCE_INSTANCE__?.[dsName]
 
     if (!ds) {
       throw new Error('The datasource[' + DatabaseDefault + '] not found.');
