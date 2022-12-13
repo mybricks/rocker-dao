@@ -20,6 +20,7 @@
     "source-map"
   ],
   "exclude": [
+    "test",
     "node_modules"
   ]
 }

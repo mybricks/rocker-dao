@@ -247,7 +247,11 @@ export class DOBase {
       dsName = DatabaseDefault;
     }
     // @ts-ignore
-    ds = dsReg[dsName] || global.__ROCKERDAO_DATASOURCE_INSTANCE__?.[dsName]
+    if(!dsReg[dsName] && global.__ROCKERDAO_DATASOURCE_INSTANCE__?.[dsName]) {
+      // @ts-ignore
+      dsReg[dsName] = global.__ROCKERDAO_DATASOURCE_INSTANCE__?.[dsName]
+    }
+    ds = dsReg[dsName]
 
     if (!ds) {
       throw new Error('The datasource[' + DatabaseDefault + '] not found.');
