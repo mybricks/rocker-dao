@@ -266,7 +266,7 @@ export class DOBase {
       }
       try {
         sqlResult = tnode.compile(_paramStatements);
-        console.log('sqlResult====>', sqlResult);
+        // console.log('sqlResult====>', sqlResult);
         _sql = sqlResult.toSql();
         isXml = true;
       } catch (ex) {
