@@ -1,7 +1,7 @@
 import * as path from 'path';
 // @ts-ignore
 import { Logger } from '@mybricks/rocker-commons';
-import { OkPacket, Pool } from 'mysql';
+import { OkPacket, Pool } from 'mysql2';
 // import * as Types from "../types";
 import { SqlMapper, DBConfigType, TNodeType, DataBase, SqlResult } from '../types';
 import { parse } from '../sqlTpt';
@@ -12,7 +12,7 @@ export default class DSMysql implements DataBase {
 	private sqlMapper: SqlMapper;
 	private config: DBConfigType;
 	constructor(_name: string, _cfg: DBConfigType) {
-		var mysql = require('mysql');
+		var mysql = require('mysql2');
 		try {
 			this.config = _cfg;
 			this.mysqlPool = mysql.createPool({
