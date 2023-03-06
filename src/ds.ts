@@ -70,10 +70,15 @@ export async function shutdown() {
     }
   }
 }
-// export getConnection1 = () => {
-// 	dbTYpe
-// 	getConnection()
-// }
+
+export function getPool(_name: string = DatabaseDefault) {
+  let ds = dsReg[_name];
+  if (!ds) {
+    throw new Error('The datasource[' + _name + '] not found.');
+  }
+  return ds.getPool()
+}
+
 export async function getConnection(_name: string = DatabaseDefault) {
   let ds = dsReg[_name];
   return _getConnection(_name, ds.getConfig().dbType);
@@ -354,7 +359,6 @@ export class DOBase {
     let genResult = function() {
       return <Promise<T>>new Promise((resolve, reject) => {
         if (isXml) {
-          console.log('sql', _sql)
           con.query(_sql, function(err, _rtn, fields) {
             !tcon ? con.release() : null;
 
@@ -475,15 +479,21 @@ function logErr(_conId, _sql, err?: Error) {
   Logger.error(`[${_conId}] Error: ${_sql ? _sql : ''}`, err);
 }
 function log(_conId, _msg, _paramAry, _bt) {
-  Logger.info(
-    '[' +
-      _conId +
-      '](' +
-      (new Date().getTime() - _bt) +
-      'ms) ' +
-      _msg +
-      (_paramAry && Array.isArray(_paramAry) ? '  [' + _paramAry + ']' : '')
-  );
+  let str  = '[' + _conId + '](' + (new Date().getTime() - _bt) + 'ms) ' + _msg;
+  str = str.replace(/\n/g, '');
+  if(str.length > 200) {
+    str = '[' + _conId + '](' + (new Date().getTime() - _bt) + 'ms) ' + '执行sql成功，日志过长跳过'
+  }
+  Logger.info(str)
+  // Logger.info(
+  //   '[' +
+  //     _conId +
+  //     '](' +
+  //     (new Date().getTime() - _bt) +
+  //     'ms) ' +
+  //     _msg +
+  //     (_paramAry && Array.isArray(_paramAry) ? '  [' + _paramAry + ']' : '')
+  // );
 }
 async function sleep(timeout) {
   await new Promise<void>((resolve, rej) => {

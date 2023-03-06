@@ -9,5 +9,5 @@
 import { Env } from "./src/ds";
 
 Env.bootstrapPath = module.parent["filename"];
-export { DOBase, Env, getConnection } from "./src/ds";
+export { DOBase, Env, getConnection, getPool } from "./src/ds";
 export * from "./src/main";
