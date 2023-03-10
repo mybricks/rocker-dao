@@ -26,7 +26,11 @@ export default class DSMysql implements DataBase {
 				// multipleStatements: true
 			});
 			if (_cfg.sqlPath) {
-				this.sqlMapper = parse(path.join(path.dirname(Env.bootstrapPath), _cfg.sqlPath));
+				if(_cfg.bootstrapPath) {
+					this.sqlMapper = parse(path.join(_cfg.bootstrapPath, _cfg.sqlPath));
+				} else {
+					this.sqlMapper = parse(path.join(path.dirname(Env.bootstrapPath), _cfg.sqlPath));
+				}
 			}
 			Logger.info('Database[' + _name + '][host: ' + _cfg.host + '] start finished.');
 		} catch (err) {

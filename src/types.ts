@@ -31,6 +31,7 @@ export type DBConfigType = {
 	database: string;
 	sqlPath?: string; //Mybatis xml file path
 	isGlobal?: boolean; // shared instance to global
+	bootstrapPath?: string; //custom bootstrap folder path
 };
 
 export class SqlResult {
