@@ -398,8 +398,6 @@ export class DOBase {
           });
         } else {
           con.query(_sql, _paramStatements, function(err, _rtn, fields) {
-            !tcon ? con.release() : null;
-
             handleResult(err, _rtn, fields)
               .then((res) => {
                 resolve(res);
@@ -435,6 +433,11 @@ export class DOBase {
             // 	}
             // }
           });
+          if(!tcon) {
+              con.release()
+          } else {
+              console.log('链接未释放')
+          }
         }
       })
         .then((_rtn) => {
