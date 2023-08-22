@@ -482,13 +482,13 @@ function logErr(_conId, _sql, err?: Error) {
   Logger.error(`[${_conId}] Error: ${_sql ? _sql : ''}`, err);
 }
 function log(_conId, _msg, _paramAry, _bt) {
-  let str  = '[' + _conId + '](' + (new Date().getTime() - _bt) + 'ms) ' + _msg;
-  str = str.replace(/\n/g, '');
-  if(str.length > 200) {
-    str = str.substring(0, 200)
-    str +=  + '......'
-  }
-  Logger.info(str)
+  // let str  = '[' + _conId + '](' + (new Date().getTime() - _bt) + 'ms) ' + _msg;
+  // str = str.replace(/\n/g, '');
+  // if(str.length > 200) {
+  //   str = str.substring(0, 200)
+  //   str +=  + '......'
+  // }
+  // Logger.info(str)
   // Logger.info(
   //   '[' +
   //     _conId +

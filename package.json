@@ -1,6 +1,6 @@
 {
   "name": "@mybricks/rocker-dao",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "Database access object framework,support transaction",
   "author": "Chemingjun",
   "scripts": {
