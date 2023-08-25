@@ -321,6 +321,7 @@ export class DOBase {
     let handleResult = function(err, _rtn, fields) {
       return <Promise<T>>new Promise((resolve, reject) => {
         if (err) {
+          logErr(tdId, _sql, err);
           reject(err);
           // return;
         } else {
