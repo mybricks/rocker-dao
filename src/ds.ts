@@ -321,7 +321,6 @@ export class DOBase {
     let handleResult = function(err, _rtn, fields) {
       return <Promise<T>>new Promise((resolve, reject) => {
         if (err) {
-          logErr(tdId, _sql, err);
           reject(err);
           // return;
         } else {
@@ -361,6 +360,9 @@ export class DOBase {
       return <Promise<T>>new Promise((resolve, reject) => {
         if (isXml) {
           con.query(_sql, function(err, _rtn, fields) {
+            if(err) {
+              logErr(tdId, _sql, err);
+            }
             !tcon ? con.release() : null;
 
             handleResult(err, _rtn, fields)
