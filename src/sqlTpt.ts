@@ -203,7 +203,7 @@ class Ttext extends TNode {
         }).replace(/#{([^}]*)(,jdbcType=([^}]*))?}/g, function (all, varName, jt, jdbcType) {
             // 针对字符串，不加''包围
             return `\${_evalWithoutQuote_('${varName}',${jdbcType ? '\'' + jdbcType + '\'' : jdbcType})}`;
-        })
+        }).replace(/`/g, '\\`')
 
         return new SqlResult(this.eval('`' + txt + '`', new EvalData(data)));
     }
